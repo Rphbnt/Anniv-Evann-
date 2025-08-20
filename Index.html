@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Joyeux Anniversaire Evann 🎉</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      overflow: hidden;
+    }
+    h1 {
+      color: #ff3366;
+      margin-top: 50px;
+    }
+    #photo {
+      margin: 20px 0;
+    }
+    #photo img {
+      max-width: 300px;
+      border-radius: 15px;
+      border: 3px solid white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    #poeme {
+      font-size: 20px;
+      margin: 20px;
+      background: rgba(255,255,255,0.8);
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #ff3366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Joyeux Anniversaire Evann 🎂</h1>
+  
+  <!-- PHOTO -->
+  <div id="photo">
+    <img src="<a href='https://postimg.cc/5jDVghP6' target='_blank'><img src='https://i.postimg.cc/5jDVghP6/IMG-1198.jpg' border='0' alt='IMG-1198'/></a>" alt="Photo souvenir">
+  </div>
 
+  <!-- POÈME -->
+  <div id="poeme">
+    🎂 Aujourd’hui c’est ta journée,<br>
+    Remplie de rires et de gaieté 😁<br><br>
+
+    🎁 Des cadeaux et plein de surprises,<br>
+    Comme un trésor qu’on dévalise 🎉<br><br>
+
+    🍰 Avec le gâteau et les bougies,<br>
+    On chante tous "hip hip hip hourra !" 🎶<br><br>
+
+    ❤️ Joyeux anniversaire Evann de la part de Raphaël ❤️
+  </div>
+
+  <button onclick="celebrer()">Clique ici 🎉</button>
+  <canvas id="confetti"></canvas>
+  
+  <script>
+    function celebrer() {
+      document.getElementById("poeme").style.display = "block";
+      lancerConfettis();
+    }
+
+    function lancerConfettis() {
+      const canvas = document.getElementById("confetti");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let confettis = [];
+      for (let i = 0; i < 200; i++) {
+        confettis.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 6 + 2,
+          d: Math.random() * 20 + 10,
+          color: "hsl(" + Math.random() * 360 + ",100%,50%)",
+          tilt: Math.random() * 10 - 10
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettis.forEach(c => {
+          ctx.beginPath();
+          ctx.fillStyle = c.color;
+          ctx.ellipse(c.x, c.y, c.r, c.r / 2, c.tilt, 0, 2 * Math.PI);
+          ctx.fill();
+        });
+        update();
+      }
+
+      function update() {
+        confettis.forEach(c => {
+          c.y += Math.random() + 1;
+          c.x += Math.sin(c.d);
+          if (c.y > canvas.height) c.y = 0;
+        });
+      }
+
+      setInterval(draw, 20);
+    }
+  </script>
+</body>
+</html>
